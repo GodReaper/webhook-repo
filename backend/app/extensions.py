@@ -1,5 +1,3 @@
-# MongoDB connection utility (to be implemented) 
-
 import os
 from pymongo import MongoClient
 from dotenv import load_dotenv
@@ -13,4 +11,4 @@ client = MongoClient(MONGODB_URI)
 db = client[DB_NAME]
 
 def get_events_collection():
-    return db['events'] 
+    return db['events']
