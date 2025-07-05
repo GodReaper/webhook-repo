@@ -21,7 +21,7 @@ export default function EventsFeed() {
 
   const fetchEvents = async () => {
     try {
-      const res = await fetch('http://localhost:5001/api/events');
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/events`);
       const data = await res.json();
       setEvents(data.events || []);
     } catch (err) {

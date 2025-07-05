@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  # MongoDB service
+  mongodb:
+    image: mongo:7.0
+    container_name: gh-webhook-mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: webhook_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - webhook-network
+
+  # Backend service
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: gh-webhook-backend
+    restart: unless-stopped
+    environment:
+      - MONGODB_URI=mongodb://admin:password@mongodb:27017/webhook_db?authSource=admin
+      - FLASK_ENV=production
+    ports:
+      - "5001:5001"
+    depends_on:
+      - mongodb
+    networks:
+      - webhook-network
+
+  # Frontend service
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: gh-webhook-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - webhook-network
+
+volumes:
+  mongodb_data:
+
+networks:
+  webhook-network:
+    driver: bridge 
