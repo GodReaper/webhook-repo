@@ -232,9 +232,10 @@ And update your fetch calls to use this variable.
 ## License
 MIT 
 
-##Tasks Given by Interviewer
-Dockerise the application
-add logging to backend 
-make it fetch only 15sec event else none (Done)
-read celery and msg queues how it works
-https://www.tornadoweb.org/en/stable/guide/queues.html read and go through the code 
+## Tasks Given by Interviewer
+
+- Dockerise the application (Done)
+- add logging to backend (Done)
+- make it fetch only 15sec event else none (Done)
+- read celery and msg queues how it works
+- https://www.tornadoweb.org/en/stable/guide/queues.html read and go through the code 
